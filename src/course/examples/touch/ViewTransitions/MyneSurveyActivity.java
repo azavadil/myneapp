@@ -103,6 +103,7 @@ public class MyneSurveyActivity extends Activity implements
 								advanceLayoutStateTo(mCurrentLayoutState);
 							} else { 
 								Toast.makeText(getBaseContext(), "End of Survey", Toast.LENGTH_LONG).show(); 
+								Log.d(APP_TAG, resultsToString()); 
 							}
 							
 						} else if (velocityX  > 10.0f) {
@@ -183,6 +184,17 @@ public class MyneSurveyActivity extends Activity implements
 		}
 	}
 	
+	private void setSeekBarProgress(SeekBar sb){ 
+		assert(mCount < mSurveySize); 
+		
+		if( mCompleted[mCount]){ 
+			sb.setProgress(mSurveyAnswers[mCount]); 
+		} else { 
+			// This is the first time the user has seen the question
+			sb.setProgress( mSurvey.get(mCount).getMax()/2 )  ; 
+		}
+	}
+	
 	// the onTouchEvent() (the "OTE") method for the Activity gets called
 	// when a touch event occurs and no view handles it
 	// when the OTE is called it will simply delegate the call to the
@@ -205,11 +217,15 @@ public class MyneSurveyActivity extends Activity implements
 
 		if (switchTo == 0) {
 			mTextView1.setText(mSurvey.get(mCount).getMsg());
+			mSeekBar1.setMax(mSurvey.get(mCount).getMax());
+		    setSeekBarProgress(mSeekBar1); 
 			mCurSeekBar = mSeekBar1;
 			setSeekBarDisplay(mTextViewSeekBar1); 
 			mCurSeekBarDisplay = mTextViewSeekBar1;
 		} else {
 			mTextView2.setText(mSurvey.get(mCount).getMsg());
+			mSeekBar2.setMax(mSurvey.get(mCount).getMax());
+			setSeekBarProgress(mSeekBar2); 
 			mCurSeekBar = mSeekBar2;
 			setSeekBarDisplay(mTextViewSeekBar2); 
 			mCurSeekBarDisplay = mTextViewSeekBar2;
@@ -228,11 +244,15 @@ public class MyneSurveyActivity extends Activity implements
 
 		if (switchTo == 0) {
 			mTextView1.setText(mSurvey.get(mCount).getMsg());
+			mSeekBar1.setMax(mSurvey.get(mCount).getMax());
+			setSeekBarProgress(mSeekBar1); 
 			mCurSeekBar = mSeekBar1;
 			setSeekBarDisplay(mTextViewSeekBar1); 
 			mCurSeekBarDisplay = mTextViewSeekBar1;
 		} else {
 			mTextView2.setText(mSurvey.get(mCount).getMsg());
+			mSeekBar2.setMax(mSurvey.get(mCount).getMax());
+			setSeekBarProgress(mSeekBar2); 
 			mCurSeekBar = mSeekBar2;
 			setSeekBarDisplay(mTextViewSeekBar2); 
 			mCurSeekBarDisplay = mTextViewSeekBar2;
@@ -317,4 +337,14 @@ public class MyneSurveyActivity extends Activity implements
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// Stub
 	}
+	
+	private String resultsToString(){
+		String res = ""; 
+		for(int i = 0; i < mSurveySize; i++){ 
+			res += Integer.toString(mSurveyAnswers[i]) + " | " + Boolean.toString(mCompleted[i] ) + ", "; 
+		} 
+		return res; 
+	}
+	
+	
 }
