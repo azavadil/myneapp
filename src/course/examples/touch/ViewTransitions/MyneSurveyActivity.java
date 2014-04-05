@@ -32,7 +32,7 @@ public class MyneSurveyActivity extends Activity implements
 	private int mCurrentLayoutState;
 	private int mCount;  //default value is 0
 	private GestureDetector mGestureDetector;
-	private ArrayList<String> mSurvey;
+	private ArrayList<Question> mSurvey;
 	private int[] mSurveyAnswers;
 	private boolean[] mCompleted;  //default value is false 
 	private SeekBar mSeekBar1, mSeekBar2;
@@ -62,19 +62,20 @@ public class MyneSurveyActivity extends Activity implements
 		mSeekBar2 = (SeekBar) findViewById(R.id.seekBar2);
 
 		// set the default values for the SeekBar
-		// It can go up to 100, and it starts in the middle at 50
-		mSeekBar1.setMax(100);
-		mSeekBar1.setProgress(50);
+		// Get the the maximum value for the first question
+		// Set the progress to be the midpoint of the range
+		mSeekBar1.setMax(mSurvey.get(mCount).getMax());
+		mSeekBar1.setProgress(mSurvey.get(mCount).getMax()/2);
+		
+	
 		mSeekBar1.setOnSeekBarChangeListener(this);
-		mSeekBar2.setMax(100); 
-		mSeekBar2.setProgress(50); 
 		mSeekBar2.setOnSeekBarChangeListener(this	); 
 		mCurSeekBar = mSeekBar1;
 		mCurSeekBarDisplay = mTextViewSeekBar1; 
 		
 
-		mTextView1.setText(mSurvey.get(mCount));
-		mTextViewSeekBar1.setText(String.valueOf(mSeekBar2.getProgress()));
+		mTextView1.setText(mSurvey.get(mCount).getMsg());
+		mTextViewSeekBar1.setText(String.valueOf(mSeekBar1.getProgress()));
 
 		// create a new GestureDetector
 		// in the constructor the code passes in a
@@ -128,7 +129,7 @@ public class MyneSurveyActivity extends Activity implements
    						int seekBarVal = 0;
 						seekBarVal = mCurSeekBar.getProgress();
 						mSurveyAnswers[mCount] = seekBarVal;
-//						mCompleted[mCount] = true;
+						mCompleted[mCount] = true;
 						
 						Toast.makeText(getApplicationContext(), "Value entered: " + Integer.toString(seekBarVal), Toast.LENGTH_LONG	).show(); 
 
@@ -153,14 +154,14 @@ public class MyneSurveyActivity extends Activity implements
 		// This is where we want to make an http request.
 		
 		mSurveySize = 5; 
-		mSurvey = new ArrayList<String>(mSurveySize); 
+		mSurvey = new ArrayList<Question>(mSurveySize); 
 		
 		// here we're faking receiving data from a server
-		mSurvey.add("0. What's your energy today?");
-		mSurvey.add( "1. How many hours did you sleep last night");
-		mSurvey.add( "2. How many glasses of water did you drink yesterday");
-		mSurvey.add( "3. How optimistic do you feel");
-		mSurvey.add( "4. How many ounces of alcohol did you drink yesterday");
+		mSurvey.add(new Question("0. What's your energy today?", 100));
+		mSurvey.add( new Question("1. How many hours did you sleep last night", 20));
+		mSurvey.add( new Question("2. How many glasses of water did you drink yesterday", 20));
+		mSurvey.add(new Question( "3. How optimistic do you feel",100));
+		mSurvey.add( new Question("4. How many ounces of alcohol did you drink yesterday", 50));
 		
 		Log.d(APP_TAG, "Survey size: " + Integer.toString(mSurveySize)); 
 		
@@ -176,7 +177,9 @@ public class MyneSurveyActivity extends Activity implements
 		if( mCompleted[mCount]){ 
 			tv.setText(Integer.toString(mSurveyAnswers[mCount])); 
 		} else { 
-			tv.setText("50"); 
+			// This is the first time the user has seen the question
+			//tv.setText("50");
+			tv.setText( Integer.toString(mSurvey.get(mCount).getMax()/2 ) ) ; 
 		}
 	}
 	
@@ -201,12 +204,12 @@ public class MyneSurveyActivity extends Activity implements
 		mCount++;
 
 		if (switchTo == 0) {
-			mTextView1.setText(mSurvey.get(mCount));
+			mTextView1.setText(mSurvey.get(mCount).getMsg());
 			mCurSeekBar = mSeekBar1;
 			setSeekBarDisplay(mTextViewSeekBar1); 
 			mCurSeekBarDisplay = mTextViewSeekBar1;
 		} else {
-			mTextView2.setText(mSurvey.get(mCount));
+			mTextView2.setText(mSurvey.get(mCount).getMsg());
 			mCurSeekBar = mSeekBar2;
 			setSeekBarDisplay(mTextViewSeekBar2); 
 			mCurSeekBarDisplay = mTextViewSeekBar2;
@@ -224,12 +227,12 @@ public class MyneSurveyActivity extends Activity implements
 		mCount--;
 
 		if (switchTo == 0) {
-			mTextView1.setText(mSurvey.get(mCount));
+			mTextView1.setText(mSurvey.get(mCount).getMsg());
 			mCurSeekBar = mSeekBar1;
 			setSeekBarDisplay(mTextViewSeekBar1); 
 			mCurSeekBarDisplay = mTextViewSeekBar1;
 		} else {
-			mTextView2.setText(mSurvey.get(mCount));
+			mTextView2.setText(mSurvey.get(mCount).getMsg());
 			mCurSeekBar = mSeekBar2;
 			setSeekBarDisplay(mTextViewSeekBar2); 
 			mCurSeekBarDisplay = mTextViewSeekBar2;
