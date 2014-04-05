@@ -1,0 +1,69 @@
+Some motion event actions
+
+the motion events are referred to as pointers. 
+
+when a gesture begins  motion events will be created and they will contain some of the 
+following action codes
+
+ACTION_DOWN indicates that the first finger has starter touching the screen
+ACTION_POINTER_DOWN indicates that we already had one finger down and now we 
+                                                 have a second finger touching the screen
+ACTION_POINTER_UP  we had 1 finger down, a 2nd finger down, and now one of the fingers 
+                                             has been lifted
+                                             
+ACTION_MOVE  some of the fingers that are touching the screen have changed their position
+ACTION_UP the last of the fingers touching the screen has been lifted
+ACTION_CANCEL something has cancelled the current gesture
+
+while a gesture is playing out android will try to ensure that they obey the following rules. 
+
+touches will go down one at a time
+they will move as group (i.e. a single motion event can refer to multiple pointers) 
+they will come up 1 at a time or be cancelled
+
+MotionEvent methods
+getActionMasked() - returns the action code associated with the motion event
+getActionIndex() - returns the index of the pointer associated with this action code
+                                   e.g. if the action code is ACTION_POINTER_DOWN then you can use
+                                          this method to get the index of the particular pointer that has just
+                                          touched down
+ getPointerId(int pointerIndex) - given and index this method returns the stable ID of the
+                                                           pointer associated with that index
+ getPointerCount() - returns the number of pointers associated with the motion event
+ getX(int pointerIndex)
+ getY(int pointerIndex) - return the Y coord of the pointer stored at the current index
+ findPointerIndex(int poniterid) - returns the index associated with the giver pointer id
+ 
+ when a touch occurs on a view android generates a motion event and then attempts 
+   to deliver that event to various objects, including the view itself. 
+ Android delivers the event using the View.onTouchEvent(MotionEvent event)
+   this method processes the MotionEvent and should end by returning true if the MotionEvent
+   has been consumed and false if the MotionEvent was not consumed
+   
+Objects interested in receiving MotionEvents that occur on a given view can register to 
+  receive those MotionEvents by implementing the View's onTouchListener interface 
+  and by registering the object with the View.setOnTouchListener() method
+  
+ The listener's onTouch will then be called when an event such as pressing, rele		asing, or 
+   dragging occurs. 
+ onTouch() called before the event is delivered to the touched view
+ onTouch() should return
+ 
+ In the simplest case you can process each touch independently. 
+ 
+ GestureDetector
+ 
+ A class that recognizes common touch gestures
+ 
+ built in gestures: single tap, double tap, fling
+ 
+ To use a gesture detector 
+   You activity has to create an instance of the gesture detector class and will
+   to give it an object that implements the 
+   GestureDetector.OnGestureListener interface
+   
+   Then the Activity will need to override its onTouchEvent() method (which is the 
+     method that gets called when the Activity receives a touch event). The 
+     onTouchEvent() method will delegate the MotionEvent to the 
+     GestureDetector.OnGestureListener
+     
