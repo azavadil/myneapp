@@ -33,12 +33,13 @@ public class MyneSurveyActivity extends Activity implements
 	private int mCount;  //default value is 0
 	private GestureDetector mGestureDetector;
 	private ArrayList<String> mSurvey;
-	private float[] mSurveyAnswers;
+	private int[] mSurveyAnswers;
 	private boolean[] mCompleted;  //default value is false 
 	private SeekBar mSeekBar1, mSeekBar2;
 	private TextView mSeekBarDisplay;
 	private SeekBar mCurSeekBar;
 	private TextView mCurSeekBarDisplay;
+	private int mSurveySize; 
 
 	private static final String APP_TAG = "Myne-App"; 
 	public static final String QUESTIONS_FILE_NAME = "questions.txt";
@@ -145,26 +146,40 @@ public class MyneSurveyActivity extends Activity implements
 	// create survey
 	private void createSurvey() {
 		Log.d(APP_TAG, "createSurvey entered"); 
-		mSurvey = new ArrayList<String>(5);
 		
 
 	   
 
 		// This is where we want to make an http request.
+		
+		mSurveySize = 5; 
+		mSurvey = new ArrayList<String>(mSurveySize); 
+		
+		// here we're faking receiving data from a server
 		mSurvey.add("0. What's your energy today?");
 		mSurvey.add( "1. How many hours did you sleep last night");
 		mSurvey.add( "2. How many glasses of water did you drink yesterday");
 		mSurvey.add( "3. How optimistic do you feel");
 		mSurvey.add( "4. How many ounces of alcohol did you drink yesterday");
 		
-		Log.d(APP_TAG, "Survey size: " + Integer.toString(mSurvey.size())); 
+		Log.d(APP_TAG, "Survey size: " + Integer.toString(mSurveySize)); 
 		
-		mSurveyAnswers = new float[mSurvey.size()];
+		mSurveyAnswers = new int[mSurveySize];
 		// boolean java arrays default to false
-		mCompleted = new boolean[mSurvey.size()];
+		mCompleted = new boolean[mSurveySize];
 		
 	}
 
+	private void setSeekBarDisplay(TextView tv){ 
+		assert(mCount < mSurveySize); 
+		
+		if( mCompleted[mCount]){ 
+			tv.setText(Integer.toString(mSurveyAnswers[mCount])); 
+		} else { 
+			tv.setText("50"); 
+		}
+	}
+	
 	// the onTouchEvent() (the "OTE") method for the Activity gets called
 	// when a touch event occurs and no view handles it
 	// when the OTE is called it will simply delegate the call to the
@@ -188,10 +203,12 @@ public class MyneSurveyActivity extends Activity implements
 		if (switchTo == 0) {
 			mTextView1.setText(mSurvey.get(mCount));
 			mCurSeekBar = mSeekBar1;
+			setSeekBarDisplay(mTextViewSeekBar1); 
 			mCurSeekBarDisplay = mTextViewSeekBar1;
 		} else {
 			mTextView2.setText(mSurvey.get(mCount));
 			mCurSeekBar = mSeekBar2;
+			setSeekBarDisplay(mTextViewSeekBar2); 
 			mCurSeekBarDisplay = mTextViewSeekBar2;
 		}
 
@@ -209,10 +226,12 @@ public class MyneSurveyActivity extends Activity implements
 		if (switchTo == 0) {
 			mTextView1.setText(mSurvey.get(mCount));
 			mCurSeekBar = mSeekBar1;
+			setSeekBarDisplay(mTextViewSeekBar1); 
 			mCurSeekBarDisplay = mTextViewSeekBar1;
 		} else {
 			mTextView2.setText(mSurvey.get(mCount));
 			mCurSeekBar = mSeekBar2;
+			setSeekBarDisplay(mTextViewSeekBar2); 
 			mCurSeekBarDisplay = mTextViewSeekBar2;
 		}
 
