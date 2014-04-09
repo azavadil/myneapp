@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="#EEEEEE"
+     >
 
 
 
@@ -18,10 +20,16 @@
 
         <SeekBar
         android:id="@+id/seekBar1"
+        android:paddingTop = "20dip"
         android:max="100"
         android:progress="50"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:secondaryProgress="0"
+        android:progressDrawable="@xml/progress_drawable"
+         />
         
         	
     <TextView
@@ -32,5 +40,11 @@
         android:gravity="center"
         android:textSize="24sp" >
     </TextView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 
 </LinearLayout>

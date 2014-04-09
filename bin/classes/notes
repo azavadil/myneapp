@@ -1,3 +1,7 @@
+look at angrave 7 lecture to cover sharedPreferences object
+
+
+
 Some motion event actions
 
 the motion events are referred to as pointers. 
@@ -66,4 +70,15 @@ Objects interested in receiving MotionEvents that occur on a given view can regi
      method that gets called when the Activity receives a touch event). The 
      onTouchEvent() method will delegate the MotionEvent to the 
      GestureDetector.OnGestureListener
-     
+
+
+
+package com.test.splash;
+ 
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.widget.ImageView;
+ 
