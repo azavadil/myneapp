@@ -1,21 +1,23 @@
 package com.myne.surveyapp;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MyneSurvey {
 	
-	private HashMap<String, List<Question>> mSurvey; 
+	private LinkedHashMap<String, List<Question>> mSurvey; 
 	private int mNumQuestions; 
 	private ArrayList<HeaderPair> mHeaders; 
 	private ArrayList<Question> mQuestions; 
 	
 	
-	public MyneSurvey(HashMap<String,List<Question>> surveyQuestions){
+	public MyneSurvey(LinkedHashMap<String,List<Question>> surveyQuestions){
 		
 		mSurvey = surveyQuestions;
+		
+		
 		mHeaders = new ArrayList<HeaderPair>(); 
 		mQuestions = new ArrayList<Question>(); 
 		
@@ -39,11 +41,17 @@ public class MyneSurvey {
 	 * @return int 
 	 */
 	
-	public int getNumQuestion(){ 
+	public int size(){ 
 		return mNumQuestions; 
 	}
 	
-	public Question getQuestion(int questionIndex){ 
+	/**
+	 * 
+	 * @param questionIndex index specifying a question
+	 * @return the question object at the specified index
+	 */
+	
+	public Question getQ(int questionIndex){ 
 		return mQuestions.get(questionIndex); 
 	}
 	

@@ -45,20 +45,23 @@ public final class R {
         public static final int survey_icon_pressed=0x7f020010;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a000d;
-        public static final int include1=0x7f0a0006;
-        public static final int include2=0x7f0a0005;
-        public static final int menu_activity=0x7f0a0007;
+        public static final int action_settings=0x7f0a0010;
+        public static final int include1=0x7f0a0007;
+        public static final int include2=0x7f0a0006;
+        public static final int menu_activity=0x7f0a0008;
         public static final int rating_bar_1=0x7f0a0000;
-        public static final int seekBar1=0x7f0a0002;
-        public static final int seekBar2=0x7f0a0009;
-        public static final int splashscreen=0x7f0a000b;
-        public static final int survey_button=0x7f0a000c;
-        public static final int textView1=0x7f0a0001;
-        public static final int textView1a=0x7f0a0003;
-        public static final int textView2=0x7f0a0008;
-        public static final int textView2a=0x7f0a000a;
-        public static final int view_flipper=0x7f0a0004;
+        public static final int rating_bar_2=0x7f0a0009;
+        public static final int seekBar1=0x7f0a0003;
+        public static final int seekBar2=0x7f0a000c;
+        public static final int splashscreen=0x7f0a000e;
+        public static final int survey_button=0x7f0a000f;
+        public static final int textView1=0x7f0a0002;
+        public static final int textView1a=0x7f0a0004;
+        public static final int textView2=0x7f0a000b;
+        public static final int textView2a=0x7f0a000d;
+        public static final int textViewHeader1=0x7f0a0001;
+        public static final int textViewHeader2=0x7f0a000a;
+        public static final int view_flipper=0x7f0a0005;
     }
     public static final class layout {
         public static final int first=0x7f030000;
@@ -80,7 +83,8 @@ public final class R {
         public static final int title_activity_menu=0x7f070001;
     }
     public static final class style {
-        public static final int CustomRatingBar=0x7f080002;
+        public static final int CustomRatingBar=0x7f080003;
+        public static final int headerTextAppearance=0x7f080002;
         public static final int labelTextAppearance=0x7f080001;
         public static final int progressRatingBar=0x7f080000;
     }

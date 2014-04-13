@@ -5,7 +5,7 @@ public class Question {
 	private String mQuestion; 
 	private int mMaxRange; 
 	private boolean mCompleted; // initialized to false
-	private String mAnswer;   // initialized to null, same as all reference types
+	private int mAnswer;   // initialized to null, same as all reference types
 	private int mId; 
 	
 	
@@ -30,11 +30,11 @@ public class Question {
 		mMaxRange = max; 
 	}
 	
-	public String getAnswer(){ 
+	public int getAnswer(){ 
 		return mAnswer; 
 	} 
 	
-	public void setAnswer(String answer){ 
+	public void setAnswer(int answer){ 
 		mAnswer = answer; 
 	}
 	
