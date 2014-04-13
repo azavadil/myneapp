@@ -78,7 +78,7 @@ public class MyneSurveyActivity extends Activity implements
 		mRatingBar2 = (RatingBar)findViewById(R.id.rating_bar_2); 
 		mCurRatingBar = mRatingBar1;
 		mCurRatingBar.setMax(mSurvey.getQ(mCount).getCategorySize()); 
-		
+		mCurRatingBar.setNumStars(mSurvey.getQ(mCount).getCategorySize());
 
 		// set the default values for the SeekBar
 		// Get the the maximum value for the first question
@@ -157,7 +157,7 @@ public class MyneSurveyActivity extends Activity implements
 						seekBarVal = mCurSeekBar.getProgress();
 						mSurvey.getQ(mCount).setAnswer(seekBarVal);
 						mSurvey.getQ(mCount).setCompleted(true);
-						mCurRatingBar.setNumStars( mSurvey.getQ(mCount).getCategoryIndex()+1); 
+						mCurRatingBar.setRating( mSurvey.getQ(mCount).getCategoryIndex()+1); 
 						
 						Toast.makeText(getApplicationContext(), "Value entered: " + Integer.toString(seekBarVal), Toast.LENGTH_SHORT	).show(); 
 
@@ -295,7 +295,9 @@ public class MyneSurveyActivity extends Activity implements
 		assert(mCount < mSurvey.size()); 
 		
 		rb.setMax(mSurvey.getQ(mCount).getCategorySize()); 
-		rb.setNumStars(mSurvey.getQ(mCount).getCategoryIndex()); 
+		rb.setNumStars(mSurvey.getQ(mCount).getCategorySize()); 
+		rb.setRating(mSurvey.getQ(mCount).getCategoryIndex()); 
+		
 	}
 	
 	private Animation inFromRightAnimation() {
