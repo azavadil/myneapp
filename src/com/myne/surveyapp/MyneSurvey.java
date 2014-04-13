@@ -23,13 +23,17 @@ public class MyneSurvey {
 		
 		
 		int count = 0; 
-		for(Map.Entry<String, List<Question>> entry : mSurvey.entrySet()){ 
+		for(Map.Entry<String, List<Question>> entry : mSurvey.entrySet()){
+			int categoryCount = 0; 
 			List<Question>cur = entry.getValue(); 
 			mNumQuestions += cur.size();
 			for(Question q : cur){ 
 				q.setId(count); 
+				q.setCategoryIndex(categoryCount); 
+				q.setCategorySize(cur.size()) ;
 				mQuestions.add(q); 
 				count++; 
+				categoryCount++; 
 			} 
 			mHeaders.add(new HeaderPair(entry.getKey(), count)); 
 		}
@@ -65,7 +69,7 @@ public class MyneSurvey {
 	 */
 	public String getHeader(int questionIndex){ 
 		for(int i = 0; i < mHeaders.size();  i++){ 
-			if( questionIndex <= mHeaders.get(i).getIndex()) { 
+			if( questionIndex < mHeaders.get(i).getIndex()) { 
 				return mHeaders.get(i).getText(); 
 			}
 		}

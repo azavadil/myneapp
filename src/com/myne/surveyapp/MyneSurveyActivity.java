@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,13 +36,13 @@ public class MyneSurveyActivity extends Activity implements
 	
 	private ViewFlipper mFlipper;
 	private TextView mTextView1, mTextView2, mTextViewSeekBar1,
-			mTextViewSeekBar2, mTextViewHeader1, mTextViewHeader2;;
+			mTextViewSeekBar2, mTextViewHeader1, mTextViewHeader2;
 	private int mCurrentLayoutState;
 	private int mCount;  //default value is 0
 	private GestureDetector mGestureDetector;
 	private MyneSurvey mSurvey;
-	private SeekBar mSeekBar1, mSeekBar2;
-	private SeekBar mCurSeekBar;
+	private SeekBar mSeekBar1, mSeekBar2, mCurSeekBar;
+	private RatingBar mRatingBar1, mRatingBar2, mCurRatingBar; 
 	private TextView mCurSeekBarDisplay;
 	private int mSurveySize; 
 	
@@ -72,6 +73,12 @@ public class MyneSurveyActivity extends Activity implements
 		mTextViewSeekBar2 = (TextView) findViewById(R.id.textView2a);
 		mSeekBar1 = (SeekBar) findViewById(R.id.seekBar1);
 		mSeekBar2 = (SeekBar) findViewById(R.id.seekBar2);
+		
+		mRatingBar1 = (RatingBar)findViewById(R.id.rating_bar_1); 
+		mRatingBar2 = (RatingBar)findViewById(R.id.rating_bar_2); 
+		mCurRatingBar = mRatingBar1;
+		mCurRatingBar.setMax(mSurvey.getQ(mCount).getCategorySize()); 
+		
 
 		// set the default values for the SeekBar
 		// Get the the maximum value for the first question
@@ -110,13 +117,19 @@ public class MyneSurveyActivity extends Activity implements
 
 							// this is just a toggle that flips mCurrentLayoutState
 							// we just use a pool of 2 views that we update
-							
-							if( mCount < mSurvey.size() - 1 ) { 
-								mCurrentLayoutState = mCurrentLayoutState == 0 ? 1 : 0;
-								advanceLayoutStateTo(mCurrentLayoutState);
+							if( !mSurvey.getQ(mCount).getCompleted()) { 
+								Toast.makeText(getApplicationContext(), 
+										"Double tap to enter value before advancing" ,
+										Toast.LENGTH_SHORT).show(); 
 							} else { 
-								Toast.makeText(getBaseContext(), "End of Survey", Toast.LENGTH_LONG).show(); 
-								Log.d(APP_TAG, resultsToString()); 
+							
+								if( mCount < mSurvey.size() - 1 ) { 
+									mCurrentLayoutState = mCurrentLayoutState == 0 ? 1 : 0;
+									advanceLayoutStateTo(mCurrentLayoutState);
+								} else { 
+									Toast.makeText(getBaseContext(), "End of Survey", Toast.LENGTH_SHORT).show(); 
+									Log.d(APP_TAG, resultsToString()); 
+								}
 							}
 							
 						} else if (velocityX  > 10.0f) {
@@ -125,7 +138,7 @@ public class MyneSurveyActivity extends Activity implements
 								mCurrentLayoutState = mCurrentLayoutState == 0 ? 1 : 0;
 								backupLayoutStateTo(mCurrentLayoutState);
 							} else { 
-								Toast.makeText(getBaseContext(), "Start of survey", Toast.LENGTH_LONG).show(); 
+								Toast.makeText(getBaseContext(), "Start of survey", Toast.LENGTH_SHORT).show(); 
 							}
 						}
 
@@ -144,8 +157,9 @@ public class MyneSurveyActivity extends Activity implements
 						seekBarVal = mCurSeekBar.getProgress();
 						mSurvey.getQ(mCount).setAnswer(seekBarVal);
 						mSurvey.getQ(mCount).setCompleted(true);
+						mCurRatingBar.setNumStars( mSurvey.getQ(mCount).getCategoryIndex()+1); 
 						
-						Toast.makeText(getApplicationContext(), "Value entered: " + Integer.toString(seekBarVal), Toast.LENGTH_LONG	).show(); 
+						Toast.makeText(getApplicationContext(), "Value entered: " + Integer.toString(seekBarVal), Toast.LENGTH_SHORT	).show(); 
 
 						return true;
 					}
@@ -179,28 +193,7 @@ public class MyneSurveyActivity extends Activity implements
 		
 	}
 
-	private void setSeekBarDisplay(TextView tv){ 
-		assert(mCount < mSurvey.size()); 
-		
-		if( mSurvey.getQ(mCount).getCompleted() ){ 
-			tv.setText(Integer.toString(mSurvey.getQ(mCount).getAnswer())); 
-		} else { 
-			// This is the first time the user has seen the question
-			//tv.setText("50");
-			tv.setText( Integer.toString(mSurvey.getQ(mCount).getMax()/2 ) ) ; 
-		}
-	}
 	
-	private void setSeekBarProgress(SeekBar sb){ 
-		assert(mCount < mSurveySize); 
-		
-		if( mSurvey.getQ(mCount).getCompleted() ){ 
-			sb.setProgress(mSurvey.getQ(mCount).getAnswer()); 
-		} else { 
-			// This is the first time the user has seen the question
-			sb.setProgress( mSurvey.getQ(mCount).getMax()/2 )  ; 
-		}
-	}
 	
 	// the onTouchEvent() (the "OTE") method for the Activity gets called
 	// when a touch event occurs and no view handles it
@@ -224,19 +217,22 @@ public class MyneSurveyActivity extends Activity implements
 
 		if (switchTo == 0) {
 			mTextView1.setText(mSurvey.getQ(mCount).getMsg());
+			mTextViewHeader1.setText(mSurvey.getHeader(mCount));
 			mSeekBar1.setMax(mSurvey.getQ(mCount).getMax());
-		    setSeekBarProgress(mSeekBar1); 
 			mCurSeekBar = mSeekBar1;
-			setSeekBarDisplay(mTextViewSeekBar1); 
 			mCurSeekBarDisplay = mTextViewSeekBar1;
+			mCurRatingBar = mRatingBar1; 
 		} else {
 			mTextView2.setText(mSurvey.getQ(mCount).getMsg());
+			mTextViewHeader2.setText(mSurvey.getHeader(mCount)); 
 			mSeekBar2.setMax(mSurvey.getQ(mCount).getMax());
-			setSeekBarProgress(mSeekBar2); 
 			mCurSeekBar = mSeekBar2;
-			setSeekBarDisplay(mTextViewSeekBar2); 
 			mCurSeekBarDisplay = mTextViewSeekBar2;
+			mCurRatingBar = mRatingBar2; 
 		}
+		setSeekBarDisplay(mCurSeekBarDisplay);
+		setSeekBarProgress(mCurSeekBar); 
+		setRatingBarStars(mCurRatingBar); 
 
 		mFlipper.showPrevious();
 	}
@@ -251,24 +247,57 @@ public class MyneSurveyActivity extends Activity implements
 
 		if (switchTo == 0) {
 			mTextView1.setText(mSurvey.getQ(mCount).getMsg());
+			mTextViewHeader1.setText(mSurvey.getHeader(mCount));
 			mSeekBar1.setMax(mSurvey.getQ(mCount).getMax());
-			setSeekBarProgress(mSeekBar1); 
 			mCurSeekBar = mSeekBar1;
-			setSeekBarDisplay(mTextViewSeekBar1); 
 			mCurSeekBarDisplay = mTextViewSeekBar1;
+			mCurRatingBar = mRatingBar1; 
 		} else {
 			mTextView2.setText(mSurvey.getQ(mCount).getMsg());
+			mTextViewHeader2.setText(mSurvey.getHeader(mCount));
 			mSeekBar2.setMax(mSurvey.getQ(mCount).getMax());
-			setSeekBarProgress(mSeekBar2); 
 			mCurSeekBar = mSeekBar2;
-			setSeekBarDisplay(mTextViewSeekBar2); 
 			mCurSeekBarDisplay = mTextViewSeekBar2;
+			mCurRatingBar = mRatingBar2; 
 		}
 
+		setSeekBarDisplay(mCurSeekBarDisplay); 
+		setSeekBarProgress(mCurSeekBar);
+		setRatingBarStars(mCurRatingBar); 
+		
 		mFlipper.showPrevious();
 	}
 
-
+	private void setSeekBarDisplay(TextView tv){ 
+		assert(mCount < mSurvey.size()); 
+		
+		if( mSurvey.getQ(mCount).getCompleted() ){ 
+			tv.setText(Integer.toString(mSurvey.getQ(mCount).getAnswer())); 
+		} else { 
+			// This is the first time the user has seen the question
+			//tv.setText("50");
+			tv.setText( Integer.toString(mSurvey.getQ(mCount).getMax()/2 ) ) ; 
+		}
+	}
+	
+	private void setSeekBarProgress(SeekBar sb){ 
+		assert(mCount < mSurveySize); 
+		
+		if( mSurvey.getQ(mCount).getCompleted() ){ 
+			sb.setProgress(mSurvey.getQ(mCount).getAnswer()); 
+		} else { 
+			// This is the first time the user has seen the question
+			sb.setProgress( mSurvey.getQ(mCount).getMax()/2 )  ; 
+		}
+	}
+	
+	private void setRatingBarStars(RatingBar rb){ 
+		assert(mCount < mSurvey.size()); 
+		
+		rb.setMax(mSurvey.getQ(mCount).getCategorySize()); 
+		rb.setNumStars(mSurvey.getQ(mCount).getCategoryIndex()); 
+	}
+	
 	private Animation inFromRightAnimation() {
 		Animation inFromRight = new TranslateAnimation(
 				Animation.RELATIVE_TO_PARENT, +1.0f,

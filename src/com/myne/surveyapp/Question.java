@@ -7,6 +7,8 @@ public class Question {
 	private boolean mCompleted; // initialized to false
 	private int mAnswer;   // initialized to null, same as all reference types
 	private int mId; 
+	private int mCategoryIndex; 
+	private int mCategorySize; 
 	
 	
 	public Question(String question, int maxRange){ 
@@ -53,4 +55,21 @@ public class Question {
 	public void setId(int n){ 
 		mId = n; 
 	}
+	
+	public void setCategoryIndex(int n){ 
+		mCategoryIndex = n; 
+	}
+	
+	public int getCategoryIndex(){ 
+		return mCategoryIndex; 
+	}
+	
+	public void setCategorySize(int n)	{ 
+		mCategorySize = n; 
+	}
+	
+	public int getCategorySize(){ 
+		return mCategorySize; 
+	}
 }
+
