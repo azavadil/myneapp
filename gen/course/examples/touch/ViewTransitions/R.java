@@ -13,6 +13,7 @@ public final class R {
     public static final class color {
         public static final int default_black=0x7f050001;
         public static final int myne=0x7f050000;
+        public static final int myne_gray=0x7f050002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -26,21 +27,22 @@ public final class R {
     }
     public static final class drawable {
         public static final int cbutton=0x7f020000;
-        public static final int heart_graphic_empty=0x7f020001;
-        public static final int heart_graphic_filled=0x7f020002;
-        public static final int icon=0x7f020003;
-        public static final int mynelogo=0x7f020004;
-        public static final int progress0=0x7f020005;
-        public static final int progress1=0x7f020006;
-        public static final int progress2=0x7f020007;
-        public static final int progress3=0x7f020008;
-        public static final int progress4=0x7f020009;
-        public static final int ratebar_theme=0x7f02000a;
-        public static final int ratingbar_full=0x7f02000b;
-        public static final int ratingbar_full_empty=0x7f02000c;
-        public static final int ratingbar_full_filled=0x7f02000d;
-        public static final int survey_icon=0x7f02000e;
-        public static final int survey_icon_pressed=0x7f02000f;
+        public static final int custom_ratingbar=0x7f020001;
+        public static final int custom_ratingbar_empty=0x7f020002;
+        public static final int custom_ratingbar_filled=0x7f020003;
+        public static final int heart_graphic_empty=0x7f020004;
+        public static final int heart_graphic_filled=0x7f020005;
+        public static final int icon=0x7f020006;
+        public static final int mynelogo=0x7f020007;
+        public static final int progress0=0x7f020008;
+        public static final int progress1=0x7f020009;
+        public static final int progress2=0x7f02000a;
+        public static final int progress3=0x7f02000b;
+        public static final int progress4=0x7f02000c;
+        public static final int ratebar_theme=0x7f02000d;
+        public static final int ratingbar_full=0x7f02000e;
+        public static final int survey_icon=0x7f02000f;
+        public static final int survey_icon_pressed=0x7f020010;
     }
     public static final class id {
         public static final int action_settings=0x7f0a000d;
@@ -78,6 +80,7 @@ public final class R {
         public static final int title_activity_menu=0x7f070001;
     }
     public static final class style {
+        public static final int CustomRatingBar=0x7f080002;
         public static final int labelTextAppearance=0x7f080001;
         public static final int progressRatingBar=0x7f080000;
     }
