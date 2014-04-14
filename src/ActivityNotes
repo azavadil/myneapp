@@ -1,0 +1,23 @@
+Activity methods
+
+onCreate(Bundle savedInstanceState) 
+onStart()
+onResume()
+onPause()
+onRestart()
+onStop()
+onDestroy()
+
+onCreate(); 
+
+call super.onCreate()
+set Activities content view
+retain UI handles as necessary
+configure UI interface views and elements as necessary
+
+in onPause() store any persistent state that the user has edited
+
+responding to device changes
+
+when configuration changes occur Android kills the activity and restarts in the
+new configuration

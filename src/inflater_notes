@@ -1,0 +1,69 @@
+what is a layout inflater? 
+  takes xml and converts it into a java object
+very time consuming operation
+  keep in mind this is an expensive operation
+  must also recursively go through all the child views and set values and attributes
+  
+  
+ there are 2 ways to get the layout inflater
+ 
+ 1. from the content, use getSystemService() or, 
+ 2. getLayoutInflater()
+ 
+ How does it work 
+ 
+ Layout inflater l = getLayoutInflater() 
+ 
+ View v = l.inflater(int resource, ViewGroup parent) 
+ 
+ @param resource: 
+ @param parent: 
+  parent is optional 
+  
+ what is v?  the root view representing the resource
+ 
+ if your xml only contains a TextView, then v will be the TextView
+ if your xml contains a LinearLayout with a TextView inside the the LinearLayout, then v will be the LinearLayout
+ 
+ example 
+ 
+ View v = l.inflater(R.layout.sublayout, null)
+ 
+ at this point,
+ v contains | the TextView sublayout
+ parent of v | null
+ layout params of v | null
+ 
+ inflating a view with a parent
+ 
+ View v = l.inflate(R.layout.sublayout, linear) 
+ 
+ v contains | reference to the LinearLayout we used as parent
+ parent of v | parent of LinearLayout
+ LayoutParams | inherits the params of the root view of the LinearLayout
+ 
+ The 3rd parameter
+ 
+ View v = l.inflate(R.layout.sublayout, linear, true)
+ 
+ what's the 3rd parameter??? 
+ 
+ true is a 3rd parameter called attachToRoot which means
+ R.layout.sublayout should be inflated and made part of the 
+ parent linear
+ 
+ same as l.inflate(R.layout.sublayout, linear) 
+ 
+v contains |  reference to the LinearLayout we used as parent
+parent of v | parent of LinearLayout
+Layout para 
+ 
+What if you use false as the 3rd parameter? 
+
+this is the case where we want a reference to the view we're attaching
+
+View v = l.inflate(R.layout.sublayout,  linear, false)
+
+v contains | TextView
+parent of v | null
+layout params | LinearLayout 
