@@ -34,6 +34,9 @@ public class MyneSurveyActivity extends Activity implements
 	
 	
 	
+	private static final String NUM_QUESTIONS = "numQuestions";
+	private static final String ANSWER_LIST = "AnswerList";
+	private static final String QUESTION_LIST = "QuestionList";
 	private ViewFlipper mFlipper;
 	private TextView mTextView1, mTextView2, mTextViewSeekBar1,
 			mTextViewSeekBar2, mTextViewHeader1, mTextViewHeader2;
@@ -129,6 +132,13 @@ public class MyneSurveyActivity extends Activity implements
 								} else { 
 									Toast.makeText(getBaseContext(), "End of Survey", Toast.LENGTH_SHORT).show(); 
 									Log.d(APP_TAG, resultsToString()); 
+									Intent summaryActivity = new Intent(getApplicationContext(), SummaryActivity.class);
+									Bundle cur = new Bundle(2); 
+									cur.putStringArray(QUESTION_LIST, mSurvey.getQuestionArray());
+									cur.putIntArray(ANSWER_LIST, mSurvey.getAnswerArray()); 
+									cur.putInt(NUM_QUESTIONS, mSurvey.size()); 
+									summaryActivity.putExtra("summaryList", cur); 
+									//startActivity(summaryActivity); 
 								}
 							}
 							
@@ -156,8 +166,11 @@ public class MyneSurveyActivity extends Activity implements
    						int seekBarVal = 0;
 						seekBarVal = mCurSeekBar.getProgress();
 						mSurvey.getQ(mCount).setAnswer(seekBarVal);
-						mSurvey.getQ(mCount).setCompleted(true);
-						mCurRatingBar.setRating( mSurvey.getQ(mCount).getCategoryIndex()+1); 
+						if( !mSurvey.getQ(mCount).getCompleted()){ 
+							mSurvey.getQ(mCount).setCompleted(true);
+							mSurvey.incrNumCompleted(mCount); 
+						}
+						mCurRatingBar.setRating( mSurvey.getNumCompleted(mCount)); 
 						
 						Toast.makeText(getApplicationContext(), "Value entered: " + Integer.toString(seekBarVal), Toast.LENGTH_SHORT	).show(); 
 
@@ -296,7 +309,7 @@ public class MyneSurveyActivity extends Activity implements
 		
 		rb.setMax(mSurvey.getQ(mCount).getCategorySize()); 
 		rb.setNumStars(mSurvey.getQ(mCount).getCategorySize()); 
-		rb.setRating(mSurvey.getQ(mCount).getCategoryIndex()); 
+		rb.setRating(mSurvey.getNumCompleted(mCount)); 
 		
 	}
 	

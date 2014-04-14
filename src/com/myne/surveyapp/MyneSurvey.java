@@ -1,15 +1,17 @@
 package com.myne.surveyapp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MyneSurvey {
 	
-	private LinkedHashMap<String, List<Question>> mSurvey; 
+	private LinkedHashMap<String, List<Question>> mSurvey;  
 	private int mNumQuestions; 
-	private ArrayList<HeaderPair> mHeaders; 
+	private HashMap<String, Integer> mCategories;
+    private HashMap <Integer, String> mIndexToCategory; 
 	private ArrayList<Question> mQuestions; 
 	
 	
@@ -18,7 +20,8 @@ public class MyneSurvey {
 		mSurvey = surveyQuestions;
 		
 		
-		mHeaders = new ArrayList<HeaderPair>(); 
+		mCategories = new HashMap<String, Integer>();
+		mIndexToCategory = new HashMap<Integer, String>(); 
 		mQuestions = new ArrayList<Question>(); 
 		
 		
@@ -31,11 +34,13 @@ public class MyneSurvey {
 				q.setId(count); 
 				q.setCategoryIndex(categoryCount); 
 				q.setCategorySize(cur.size()) ;
+				q.setCategory(entry.getKey()); 
+				mIndexToCategory.put(count, entry.getKey()); 
 				mQuestions.add(q); 
 				count++; 
 				categoryCount++; 
 			} 
-			mHeaders.add(new HeaderPair(entry.getKey(), count)); 
+			mCategories.put(entry.getKey(), 0); 
 		}
 			
 	}
@@ -68,11 +73,32 @@ public class MyneSurvey {
 	 * @return String header for the question
 	 */
 	public String getHeader(int questionIndex){ 
-		for(int i = 0; i < mHeaders.size();  i++){ 
-			if( questionIndex < mHeaders.get(i).getIndex()) { 
-				return mHeaders.get(i).getText(); 
-			}
-		}
-		return ""; 
+		return mIndexToCategory.get(questionIndex); 
 	}
+	
+	public int getNumCompleted(int index){ 
+		return mCategories.get(mIndexToCategory.get(index)); 
+	}
+	
+	public void incrNumCompleted(int index){ 
+		mCategories.put(mIndexToCategory.get(index),
+				mCategories.get(mIndexToCategory.get(index)) + 1);  
+	}
+	
+	public String[] getQuestionArray(){ 
+		String[] res = new String[mQuestions.size()];
+		for(int i = 0; i < mQuestions.size(); i++){ 
+			res[i] = mQuestions.get(i).getMsg(); 
+		}
+		return res; 
+	}
+	
+	public int[] getAnswerArray(){
+		int[] res = new int[mQuestions.size()]; 
+		for(int i = 0; i < mQuestions.size(); i++){ 
+			res[i] = mQuestions.get(i).getAnswer(); 
+		}
+		return res; 
+	}
+	
 }

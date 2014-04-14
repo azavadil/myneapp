@@ -9,7 +9,7 @@ public class Question {
 	private int mId; 
 	private int mCategoryIndex; 
 	private int mCategorySize; 
-	
+	private String mCategory; 
 	
 	public Question(String question, int maxRange){ 
 		this.mQuestion = question; 
@@ -70,6 +70,14 @@ public class Question {
 	
 	public int getCategorySize(){ 
 		return mCategorySize; 
+	}
+	
+	public void setCategory(String category){ 
+		mCategory = category; 
+	}
+	
+	public String getCategory(){ 
+		return mCategory; 
 	}
 }
 

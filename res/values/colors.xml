@@ -3,5 +3,6 @@
 <color name="myne">#C0003C</color>
 <color name="default_black">#000000</color>
 <color name="myne_gray">#EEEEEE</color>
+<color name="default_white">#FFFFFF</color>
     
 </resources>

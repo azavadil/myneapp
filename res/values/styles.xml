@@ -7,7 +7,18 @@
         <item name="android:minHeight">48dip</item>
         <item name="android:maxHeight">48dip</item>
     </style>
-    
+	
+    <style name="loginScreen"> 
+        <item name="android:background">@color/myne</item>
+            
+     </style>
+     
+    <style name="loginScreenEditText"> 
+        <item name="android:background">@color/default_white</item>
+        <item name="android:layout_marginTop">6dip</item>
+        </style>
+        
+            
     <style name="labelTextAppearance" parent="@android:style/TextAppearance"> 
         <item name = "android:textSize">24sp</item> 
         <item name="android:textColor">@color/default_black</item>

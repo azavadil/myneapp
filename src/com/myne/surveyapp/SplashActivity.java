@@ -22,8 +22,8 @@ public class SplashActivity extends Activity {
 			
 			@Override
 			public void run(){ 
-				Intent surveyIntent = new Intent(SplashActivity.this, MenuActivity.class); 
-				SplashActivity.this.startActivity(surveyIntent); 
+				Intent loginIntent = new Intent(SplashActivity.this, LoginActivity.class); 
+				SplashActivity.this.startActivity(loginIntent); 
 				SplashActivity.this.finish(); 
 			}
 		}, SPLASHTIME); 
