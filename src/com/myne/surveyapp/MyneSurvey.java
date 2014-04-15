@@ -94,11 +94,11 @@ public class MyneSurvey {
 	}
 	
 	public int[] getAnswerArray(){
-		int[] res = new int[mQuestions.size()]; 
+		int[] answers = new int[mQuestions.size()]; 
 		for(int i = 0; i < mQuestions.size(); i++){ 
-			res[i] = mQuestions.get(i).getAnswer(); 
+			answers[i] = mQuestions.get(i).getAnswer(); 
 		}
-		return res; 
+		return answers; 
 	}
 	
 }

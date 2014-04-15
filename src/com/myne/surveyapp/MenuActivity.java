@@ -74,7 +74,7 @@ public class MenuActivity extends Activity {
 				Log.d(APP_TAG, "button clicked"); 
 				// TODO Auto-generated method stub
 				try { 
-					Intent surveyActivity = new Intent(getBaseContext(), MyneSurveyActivity.class); 
+					Intent surveyActivity = new Intent(MenuActivity.this, MyneSurveyActivity.class); 
 					startActivity(surveyActivity); 	
 				} catch (Exception e){ 
 					Log.d(APP_TAG, e.toString()); 

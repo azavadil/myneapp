@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
 			 @Override 
 			 public void onClick(View v){ 
 				 
-				 Intent menuActivity = new Intent(getApplicationContext(), MenuActivity.class); 
+				 Intent menuActivity = new Intent(LoginActivity.this, MenuActivity.class); 
 				 startActivity(menuActivity); 
 				 finish(); 
 			 }

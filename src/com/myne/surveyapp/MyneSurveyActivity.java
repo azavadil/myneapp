@@ -51,8 +51,6 @@ public class MyneSurveyActivity extends Activity implements
 	
 	
 	private static final String APP_TAG = "Myne-App"; 
-	public static final String QUESTIONS_FILE_NAME = "questions.txt";
-	public static final String ANSWERS_FILE_NAME = "answers_log.txt";
 	
 	
 
@@ -131,14 +129,15 @@ public class MyneSurveyActivity extends Activity implements
 									advanceLayoutStateTo(mCurrentLayoutState);
 								} else { 
 									Toast.makeText(getBaseContext(), "End of Survey", Toast.LENGTH_SHORT).show(); 
-									Log.d(APP_TAG, resultsToString()); 
-									Intent summaryActivity = new Intent(getApplicationContext(), SummaryActivity.class);
-									Bundle cur = new Bundle(2); 
-									cur.putStringArray(QUESTION_LIST, mSurvey.getQuestionArray());
-									cur.putIntArray(ANSWER_LIST, mSurvey.getAnswerArray()); 
-									cur.putInt(NUM_QUESTIONS, mSurvey.size()); 
-									summaryActivity.putExtra("summaryList", cur); 
-									//startActivity(summaryActivity); 
+									Intent summaryActivity = new Intent(MyneSurveyActivity.this, SummaryActivity.class);
+									Bundle extrasBundle = new Bundle(); 
+									
+									extrasBundle.putStringArray(QUESTION_LIST,mSurvey.getQuestionArray());
+									extrasBundle.putIntArray(ANSWER_LIST, mSurvey.getAnswerArray()); 
+									extrasBundle.putInt(NUM_QUESTIONS, mSurvey.size()); 
+
+									summaryActivity.putExtras(extrasBundle); 
+									startActivity(summaryActivity); 
 								}
 							}
 							
@@ -375,7 +374,7 @@ public class MyneSurveyActivity extends Activity implements
 	
 	private String resultsToString(){
 		String res = ""; 
-		for(int i = 0; i < mSurveySize; i++){ 
+		for(int i = 0; i < mSurvey.size(); i++){ 
 			res += Integer.toString(mSurvey.getQ(i).getAnswer()) + " | " + Boolean.toString(mSurvey.getQ(i).getCompleted() ) + ", "; 
 		} 
 		return res; 
