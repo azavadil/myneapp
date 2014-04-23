@@ -7,6 +7,10 @@ import course.examples.touch.ViewTransitions.R;
 import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +18,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
@@ -86,6 +91,8 @@ public class MyneSurveyActivity extends Activity implements
 		// Set the progress to be the midpoint of the range
 		mSeekBar1.setMax(mSurvey.getQ(mCount).getMax());
 		mSeekBar1.setProgress(mSurvey.getQ(mCount).getMax()/2);
+		
+				
 		
 	
 		mSeekBar1.setOnSeekBarChangeListener(this);

@@ -4,6 +4,7 @@
     <style name="progressRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_full</item>
         <item name="android:indeterminate">@drawable/ratingbar_full</item>
+        <item name="android:thumb">@drawable/slider_3</item>
         <item name="android:minHeight">48dip</item>
         <item name="android:maxHeight">48dip</item>
     </style>
@@ -12,7 +13,12 @@
         <item name="android:background">@color/myne</item>
             
      </style>
-     
+    
+    <style name="mainTheme">
+        <item name="android:background">@color/default_white</item>"
+    </style>
+    
+    
     <style name="loginScreenEditText"> 
         <item name="android:background">@color/default_white</item>
         <item name="android:layout_marginTop">6dip</item>
@@ -33,9 +39,9 @@
     
     <style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
-        <item name="android:minHeight">48dip</item>
+         <item name="android:minHeight">48dip</item>
         <item name="android:maxHeight">48dip</item>
-        <item name="android:background">@color/myne_gray</item>
+        <item name="android:background">@color/default_white</item>
     </style>
     
 
