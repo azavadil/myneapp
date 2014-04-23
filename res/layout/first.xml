@@ -52,7 +52,6 @@
         android:layout_gravity="center"
         android:secondaryProgress="0"
         android:progressDrawable="@xml/progress_drawable"
-        android:thumb="@drawable/thumb_image"
          />
         
         	

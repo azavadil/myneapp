@@ -4,7 +4,6 @@
     <style name="progressRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/ratingbar_full</item>
         <item name="android:indeterminate">@drawable/ratingbar_full</item>
-        <item name="android:thumb">@drawable/slider_3</item>
         <item name="android:minHeight">48dip</item>
         <item name="android:maxHeight">48dip</item>
     </style>
