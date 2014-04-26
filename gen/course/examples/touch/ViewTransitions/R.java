@@ -41,12 +41,13 @@ public final class R {
         public static final int progress3=0x7f02000b;
         public static final int progress4=0x7f02000c;
         public static final int ratingbar_full=0x7f02000d;
-        public static final int slider_0=0x7f02000e;
-        public static final int slider_3=0x7f02000f;
-        public static final int survey_icon=0x7f020010;
-        public static final int survey_icon_pressed=0x7f020011;
-        public static final int thumb_button=0x7f020012;
-        public static final int thumb_image=0x7f020013;
+        public static final int scrubber_control_normal_holo=0x7f02000e;
+        public static final int slider_0=0x7f02000f;
+        public static final int slider_3=0x7f020010;
+        public static final int survey_icon=0x7f020011;
+        public static final int survey_icon_pressed=0x7f020012;
+        public static final int thumb_button=0x7f020013;
+        public static final int thumb_image=0x7f020014;
     }
     public static final class id {
         public static final int action_settings=0x7f0a0013;
@@ -98,13 +99,16 @@ public final class R {
         public static final int title_activity_summary=0x7f070006;
     }
     public static final class style {
-        public static final int CustomRatingBar=0x7f080006;
-        public static final int headerTextAppearance=0x7f080005;
-        public static final int labelTextAppearance=0x7f080004;
-        public static final int loginScreen=0x7f080001;
-        public static final int loginScreenEditText=0x7f080003;
-        public static final int mainTheme=0x7f080002;
+        public static final int CustomActionBarTheme=0x7f080008;
+        public static final int CustomRatingBar=0x7f080007;
+        public static final int MyActionBar=0x7f080009;
+        public static final int headerTextAppearance=0x7f080006;
+        public static final int labelTextAppearance=0x7f080005;
+        public static final int loginScreen=0x7f080002;
+        public static final int loginScreenEditText=0x7f080004;
+        public static final int mainTheme=0x7f080001;
         public static final int progressRatingBar=0x7f080000;
+        public static final int surveyLayout=0x7f080003;
     }
     public static final class xml {
         public static final int progress_drawable=0x7f040000;

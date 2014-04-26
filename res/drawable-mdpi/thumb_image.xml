@@ -4,13 +4,13 @@
     <item>
         <shape>
             <size
-                android:height="20dp"
-                android:width="20dp" />
+                android:height="40dp"
+                android:width="40dp" />
 
             <solid android:color="@android:color/transparent" />
         </shape>
     </item>
-    <item android:drawable="@drawable/slider_3"/>
+    <item android:drawable="@drawable/scrubber_control_normal_holo"/>
 
 
 </layer-list>
